@@ -80,7 +80,7 @@ function WeatherInfo({ open, onClose, weather }) {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-          <Grid container rowSpacing={1} columns={2} columnSpacing={{ xs: 1, sm: 2, md: 0 }}>
+          <Grid container columns={2} >
             <Grid xs={12}>
               <Typography variant="h4" className={classes.title}>
                 {capitalizeFirstLetter(weather.name)}, {weather.sys.country}

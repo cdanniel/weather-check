@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const options = ['León', 'Madrid', 'Sevilla', 'Barcelona', 'Bilbao'];
+const options = ['León', 'Madrid', 'Sevilla', 'Barcelona', 'Bilbao', 'Gijón'];
 
 function HomePage() {
   const classes = useStyles();
@@ -46,6 +46,7 @@ function HomePage() {
         `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=c0adeb47bff37ca9089cfe5df84b6399&units=metric`
       );
       setWeather(response.data);
+      console.log(response.data);
       setShowModal(true); // mostrar ventana emergente cuando se obtienen los datos
     } catch (error) {
       console.log(error);
