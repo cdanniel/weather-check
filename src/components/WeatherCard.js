@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     width: 400,
     marginTop: theme.spacing(2),
+    backgroundColor: '#f5f5ed',
   },
   media: {
     width: 100,

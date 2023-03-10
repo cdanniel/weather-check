@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
   },
   paper: {
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: '#f9f6ed',
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
@@ -107,13 +107,13 @@ function WeatherInfo({ open, onClose, weather }) {
             </Grid>
             <Grid xs={12}>
               <Typography variant="body1" className={classes.temperatureMinMax}>
-                Max: {Math.round(weather.main.temp_max)}°C / Min:{' '}
+                Máx: {Math.round(weather.main.temp_max)}°C / Mín:{' '}
                 {Math.round(weather.main.temp_min)}°C
               </Typography>
             </Grid>
             <Grid xs={12}>
               <Typography variant="body1" className={classes.windHumidity}>
-                Wind: {weather.wind.speed} km/h | Humidity: {weather.main.humidity}%
+                Viento: {weather.wind.speed} km/h | Humedad: {weather.main.humidity}%
               </Typography>
             </Grid>
           </Grid>

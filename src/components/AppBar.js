@@ -12,7 +12,7 @@ import logo from '../assets/logo.png';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
-    backgroundColor: '#d6eaf8', // Color azul
+    backgroundColor: '#d6eaf8', 
     alignItems: 'center',
     width: '100%',
     height: 70,
