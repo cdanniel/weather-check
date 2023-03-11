@@ -1,6 +1,6 @@
 # Weather Check App
 
-## Instrucciones para ejecutar en local y probar
+## Instrucciones para la ejecución del programa
 
 Antes de continuar, asegúrate de tener instalado Node.js y React en tu ordenador. Si no es así, puedes descargarlos en los siguientes enlaces:
 - [Node.js](https://nodejs.org/es/)
