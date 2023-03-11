@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import MyAppBar from '../components/AppBar';
 import TextField from '@material-ui/core/TextField';
-import Autocomplete from '@material-ui/lab/Autocomplete';
 import logo2 from '../assets/logo2.png';
 import logo from '../assets/logo.png';
 import { Button, Grid } from '@material-ui/core';
@@ -11,6 +9,8 @@ import WeatherInfo from '../components/WeatherInfo';
 import WeatherCard from '../components/WeatherCard';
 import Typography from '@material-ui/core/Typography';
 import backgroundImage from '../assets/fondoWeb.jpg';
+import Snackbar from '@material-ui/core/Snackbar';
+import { CheckCircleOutline } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -62,14 +62,13 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-const options = ['León,es', 'Madrid', 'Sevilla', 'Barcelona', 'Bilbao', 'Gijón'];
-
 function HomePage() {
   const classes = useStyles();
   const [city, setCity] = useState('');
   const [weather, setWeather] = useState(null);
   const [cities, setCities] = useState([]);
   const [showModal, setShowModal] = useState(false); // estado para controlar visibilidad de ventana emergente
+  const [openSnackbar, setOpenSnackbar] = useState(false);
 
   const handleSearch = async () => {
     console.log("antes", cities);
@@ -80,14 +79,28 @@ function HomePage() {
       setWeather(response.data);
       console.log(response.data);
       setShowModal(true); // mostrar ventana emergente cuando se obtienen los datos
+      setOpenSnackbar(true);
       
       // Guardar el tiempo obtenido en el historial
-      if (!cities.includes(city)){
-        setCities([{time: response.data.dt, weather: response.data}, ...cities.slice(0, 4)]);
+      // Actualizar el historial
+      const newCity = {
+        time: response.data.dt,
+        weather: response.data
+      };
+      if (!cities.some(city => city.weather.name === newCity.weather.name)) {
+        // Si el historial ya tiene 5 elementos, eliminar el último
+        if (cities.length === 5) {
+          cities.pop();
+        } 
+        setCities(prevCities => [newCity, ...prevCities]);
       }
+
       
     } catch (error) {
       console.log(error);
+      if (error.response && error.response.status === 404) {
+        alert(`La ciudad ${city} no existe`);
+      }
     }
     console.log(cities);
   };
@@ -100,9 +113,15 @@ function HomePage() {
           <Typography variant="h4" component="h2">
             Historial de búsquedas
           </Typography>
-          {cities.map(city => (
-            <WeatherCard key={city.time} weather={city.weather}/>
-          ))}
+          {cities.length === 0 ? (
+            <Typography variant="subtitle1">
+              No hay ciudades en el historial de búsquedas.
+            </Typography>
+          ) : (
+            cities.map(city => (
+              <WeatherCard key={city.time} weather={city.weather}/>
+            ))
+          )}
         </Grid>
         <Grid item xs={12} md={6} className={classes.derecha}>
           <Typography variant="h4" component="h2">
@@ -122,6 +141,17 @@ function HomePage() {
           {showModal && <WeatherInfo open={true} weather={weather} onClose={() => setShowModal(false)} />} 
         </Grid>
       </Grid>
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={3000} // Duración en ms que estará visible el Snackbar
+        onClose={() => setOpenSnackbar(false)}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} // Ubicación del Snackbar en la pantalla
+      >
+        <div style={{ display: 'flex', alignItems: 'center', marginBottom: 140 }}>
+          <CheckCircleOutline style={{ marginRight: '0.5rem' }} />
+          <span>La solicitud a la API se ha realizado correctamente.</span>
+        </div>
+      </Snackbar>
     </div>
   );
 }
