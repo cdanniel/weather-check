@@ -12,6 +12,7 @@ import backgroundImage from '../assets/fondoWeb.jpg';
 import Snackbar from '@material-ui/core/Snackbar';
 import { CheckCircleOutline } from '@material-ui/icons';
 import Footer from '../components/Footer';
+import { API_KEY } from '../config';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -81,7 +82,7 @@ function HomePage() {
 
     try {
       const response = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=c0adeb47bff37ca9089cfe5df84b6399&units=metric&lang=es`
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric&lang=es`
       );
       setWeather(response.data);
       setShowModal(true);
