@@ -14,6 +14,7 @@ Para ejecutar la aplicación en local, sigue los siguientes pasos:
 export const apiKey = "TU_API_KEY_DE_OPENWEATHERMAP";
 ```
 Reemplaza "TU_API_KEY_DE_OPENWEATHERMAP" con tu propia API key proporcionada por OpenWeather.
+
 3. Abre una terminal en la raíz del proyecto y ejecuta los siguientes comandos:
 ```bash
 npm install
