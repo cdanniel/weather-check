@@ -66,8 +66,6 @@ function WeatherInfo({ open, onClose, weather }) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   };
 
-  console.log(weather.weather[0].icon);
-
   return (
     <div>
       <Modal

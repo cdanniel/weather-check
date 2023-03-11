@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import backgroundImage from '../assets/fondoWeb.jpg';
 import Snackbar from '@material-ui/core/Snackbar';
 import { CheckCircleOutline } from '@material-ui/icons';
+import Footer from '../components/Footer';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,8 +59,14 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#1078bb',
     width: 100,
     height: 40,
+  },
+  snackbar: {
+    display: 'flex', 
+    alignItems: 'center', 
+    marginBottom: 130,
+    fontSize: '1.2rem',
+    padding: '1rem 2rem',
   }
-
 }));
 
 function HomePage() {
@@ -67,28 +74,24 @@ function HomePage() {
   const [city, setCity] = useState('');
   const [weather, setWeather] = useState(null);
   const [cities, setCities] = useState([]);
-  const [showModal, setShowModal] = useState(false); // estado para controlar visibilidad de ventana emergente
+  const [showModal, setShowModal] = useState(false);
   const [openSnackbar, setOpenSnackbar] = useState(false);
 
   const handleSearch = async () => {
-    console.log("antes", cities);
+
     try {
       const response = await axios.get(
         `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=c0adeb47bff37ca9089cfe5df84b6399&units=metric&lang=es`
       );
       setWeather(response.data);
-      console.log(response.data);
-      setShowModal(true); // mostrar ventana emergente cuando se obtienen los datos
+      setShowModal(true);
       setOpenSnackbar(true);
       
-      // Guardar el tiempo obtenido en el historial
-      // Actualizar el historial
       const newCity = {
         time: response.data.dt,
         weather: response.data
       };
       if (!cities.some(city => city.weather.name === newCity.weather.name)) {
-        // Si el historial ya tiene 5 elementos, eliminar el último
         if (cities.length === 5) {
           cities.pop();
         } 
@@ -97,12 +100,10 @@ function HomePage() {
 
       
     } catch (error) {
-      console.log(error);
       if (error.response && error.response.status === 404) {
         alert(`La ciudad ${city} no existe`);
       }
     }
-    console.log(cities);
   };
 
   return (
@@ -143,15 +144,16 @@ function HomePage() {
       </Grid>
       <Snackbar
         open={openSnackbar}
-        autoHideDuration={3000} // Duración en ms que estará visible el Snackbar
+        autoHideDuration={3000} 
         onClose={() => setOpenSnackbar(false)}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} // Ubicación del Snackbar en la pantalla
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', marginBottom: 140 }}>
-          <CheckCircleOutline style={{ marginRight: '0.5rem' }} />
-          <span>La solicitud a la API se ha realizado correctamente.</span>
+        <div className={classes.snackbar}>
+          <CheckCircleOutline style={{ marginRight: '0.5rem'}} />
+          <span>La solicitud se ha realizado correctamente.</span>
         </div>
       </Snackbar>
+      <Footer />
     </div>
   );
 }
