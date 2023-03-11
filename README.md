@@ -3,8 +3,8 @@
 ## Instrucciones para ejecutar en local y probar
 
 Antes de continuar, asegúrate de tener instalado Node.js y React en tu ordenador. Si no es así, puedes descargarlos en los siguientes enlaces:
-[Node.js]{https://nodejs.org/es/}
-[React](https://es.reactjs.org/)
+- [Node.js](https://nodejs.org/es/)
+- [React](https://es.reactjs.org/)
 
 Para ejecutar la aplicación en local, sigue los siguientes pasos:
 
